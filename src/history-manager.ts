@@ -1,6 +1,10 @@
 import { CursorList } from "./cursor-list";
 
 export class HistoryManager extends CursorList<string> {
+  constructor(maxSize: number = Infinity) {
+    super(maxSize);
+  }
+
   navigateTo(url: string): void {
     this.insert(url);
     this.onNavigate(url);

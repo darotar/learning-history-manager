@@ -2,6 +2,8 @@ export class CursorList<T> {
   protected list: T[] = [];
   private cursor: number = -1;
 
+  constructor(private maxSize: number = Infinity) {}
+
   get length(): number {
     return this.list.length;
   }
@@ -16,6 +18,11 @@ export class CursorList<T> {
     }
 
     this.list.push(val);
+
+    if (this.length > this.maxSize) {
+      this.list.shift();
+    }
+
     this.cursor = this.list.length - 1;
   }
 

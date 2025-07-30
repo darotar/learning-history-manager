@@ -44,11 +44,26 @@ describe("HistoryManager", () => {
   test("navigating mid-history drops forward entries", () => {
     hm.navigateTo("one");
     hm.navigateTo("two");
-    hm.back(); // at 'one'
-    hm.navigateTo("three"); // drops 'two'
+    hm.back();
+    hm.navigateTo("three");
 
     expect(hm.length).toBe(2);
     expect(hm.current).toBe("three");
     expect(hm.go(-1)).toBe("one");
+  });
+
+  describe("capacity limit", () => {
+    it("drops oldest entries when maxSize is exceeded", () => {
+      const hm = new HistoryManager(2);
+
+      hm.navigateTo("one");
+      hm.navigateTo("two");
+      hm.navigateTo("three");
+
+      expect(hm.length).toBe(2);
+      expect(hm.current).toBe("three");
+
+      expect(hm.back()).toBe("two");
+    });
   });
 });
