@@ -1,6 +1,6 @@
 export class CursorList<T> {
   protected list: T[] = [];
-  private cursor: number = -1;
+  protected cursor: number = -1;
 
   constructor(private maxSize: number = Infinity) {}
 
